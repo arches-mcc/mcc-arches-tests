@@ -1,0 +1,112 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.191.1/containers/python-3-postgres
+// Update the VARIANT arg in docker-compose.yml to pick a Python version: 3, 3.8, 3.7, 3.6
+{
+	"name": "Arches Project - Dev Container",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspaces",
+	"containerEnv": {
+		"TZ": "America/Toronto"
+	},
+
+	// Set *default* container specific settings.json values on container create.
+	"customizations": {
+    "vscode": {
+      "openFiles": [
+        "README.md"
+      ],
+      "settings": {
+        "redhat.telemetry.enabled": false,
+        "cSpell.language": "fr,en",
+        "extensions.ignoreRecommendations":true,
+        "sqltools.connections": [{
+          "name": "Arches MCC database",
+          "driver": "PostgreSQL",
+          "previewLimit": 50,
+          "server": "arches_db_dev",
+          "port": 5432,
+          "database": "arches_mcc_dev",
+          "username": "postgres",
+          "askForPassword": true
+        }],
+        "sqltools.disableNodeDetectNotifications": true,
+        "python.pythonPath": "/usr/local/bin/python",
+        "python.languageServer": "Pylance",
+        "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
+        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+        "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
+        "python.testing.pytestPath": "/usr/local/py-utils/bin/pytest",
+        "python.analysis.autoImportCompletions": true,
+        "python.analysis.fixAll": ["source.unusedImports"]
+        // "editor.defaultFormatter": "ms-python.black-formatter",
+      },
+
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "ms-azuretools.vscode-docker",
+        "esbenp.prettier-vscode",
+        "christian-kohler.path-intellisense",
+        "redhat.vscode-yaml",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.pylint",
+        "njpwerner.autodocstring",
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.npm-intellisense",
+        // "ms-python.black-formatter",
+        "tamasfe.even-better-toml",
+        "ms-python.python",
+        "donjayamanne.python-environment-manager",
+        "charliermarsh.ruff",
+        "mikestead.dotenv",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg",
+        // "TabNine.tabnine-vscode", Tabnine AI assistent with free
+        // "GrapeCity.gc-excelviewer", //Excel Viewer
+        "vsls-contrib.codetour", //Code Tour
+        "streetsidesoftware.code-spell-checker", //Code Spell checker
+        "streetsidesoftware.code-spell-checker-french", //French for Code Spell Checker
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "bierner.markdown-preview-github-styles",
+        "bierner.markdown-emoji",
+        "darkriszty.markdown-table-prettify",
+        "jebbs.markdown-extended",
+        "aaron-bond.better-comments",
+        "wayou.vscode-todo-highlight",
+        "hediet.vscode-drawio", //Draw.io
+        "humao.rest-client"
+      ]
+    }
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "node",
+      "nodeGypDependencies": false
+    }
+  },
+
+	// "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind" ],
+
+  // Ref: https://github.com/godatadriven/python-devcontainer-template/blob/main/.devcontainer/devcontainer.json
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [5000, 5432],
+  "portsAttributes": {
+    "8000": {
+      "label": "Arches dev - MCC",
+      "onAutoForward": "notify"
+    }
+  },
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "pip install --user -r requirements.txt",
+
+	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  // Using vscode is not compatible with this setup as /workspaces/ is with root:root owner
+	// "remoteUser": "vscode"
+  "remoteUser": "root"
+}
